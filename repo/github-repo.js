@@ -2,6 +2,12 @@ import axios from "axios"
 import { APP_CONST } from "../config/constants.js"
 
 
+/**
+ * Repository class for accessing github search api
+ *
+ * @export
+ * @class GithubRepo
+ */
 export class GithubRepo{
   async searchRepositories({query, page} = {}){
     const response = await this.getSearchResponse({query, page})
@@ -23,6 +29,24 @@ export class GithubRepo{
   }
 
 
+  /**
+   * Github search api provide pagination info in request's header, "link" field.
+   * 
+   * The method extract the query params in each link then append it to "/part2" string
+   * 
+   *
+   * @param {*} linkString "
+   *  <https://api.github.com/search/repositories?q=nodejs&page=1>; rel="prev",
+   *  <https://api.github.com/search/repositories?q=nodejs&page=2>; rel="next"
+   * "
+   * @return {*} result {
+        first: '/part2?page=1',
+        prev: '/part2?page=1',
+        next: '/part2?page=3',
+        last: '/part2?page=99'
+      } // each element will be used in <a href="element"> of part2 html file.
+   * @memberof GithubRepo
+   */
   extractPaginationInfoFromRequestHeader(linkString){
     const links = linkString.split(",")
     const result = {}
