@@ -1,0 +1,55 @@
+<style>
+  table, th, td{
+    border: 1px solid black;
+  }
+</style>
+<div>
+  <h1><p>PART 2</p></h1>
+  <table>
+    <thead>
+      <tr>
+        <td>Name</tzd>
+        <td>Full Name</td>
+        <td>Description</td>
+        <td>URL</td>
+        <td>Language</td>
+        <td>Owner</td>
+        <td>Homepage</td>
+        <td>Created At</td>
+        <td>Updated At</td>
+        <td>Stargazers Count</td>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each searchResults}}
+        <tr>
+          <td>{{this.name}}</td>
+          <td>{{this.full_name}}</td>
+          <td>{{this.description}}</td>
+          <td>{{this.html_url}}</td>
+          <td>{{this.language}}</td>
+          <td>{{this.owner.login}}</td>
+          <td>{{this.homepage}}</td>
+          <td>{{iso_to_date_string this.created_at}}</td>
+          <td>{{iso_to_date_string this.updated_at}}</td>
+          <td>{{this.stargazers_count}}</td>
+
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{#if paginationInfo.first}}
+    <a href={{ paginationInfo.first }}>FirstPage</a>
+  {{/if}}
+  {{#if paginationInfo.prev}}
+    <a href={{ paginationInfo.prev }}>PreviousPage</a>
+  {{/if}}
+  {{#if paginationInfo.next}}
+    <a href={{ paginationInfo.next }}>NextPage</a>
+  {{/if}}
+  {{#if paginationInfo.last}}
+    <a href={{ paginationInfo.last }}>LastPage</a>
+  {{/if}}
+
+
+</div>
